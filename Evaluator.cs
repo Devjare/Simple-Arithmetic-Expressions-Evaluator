@@ -13,7 +13,7 @@ namespace ExpressionEvaluator
 {
     public partial class Evaluator : Form
     {
-        List<Object> lista;
+        String expression;
         public Evaluator()
         {
             InitializeComponent();
@@ -23,12 +23,39 @@ namespace ExpressionEvaluator
         {
             if(e.KeyCode == Keys.Enter)
             {
-                var parser = new Parser(txtExpression.Text);
-                var evaluator = new CodeAnalysis.Evaluator(parser.ParseExpression());
 
-                var result = evaluator.Evaluate();
-                lblResult.Text = result.ToString();
+                try
+                {
+                    Evaluate();
+                    lblStatus.Visible = false;
+                }
+                catch (Exception ex)
+                {
+                    lblStatus.Text = "Please enter all the variables needed!";
+                    lblStatus.Visible = true;
+                }
+
             }
+        }
+
+        private void SubstituteValues(Dictionary<string, string> variablesTable, ref string expression)
+        {
+            foreach (var variable in variablesTable)
+            {
+                if (expression.Contains(variable.Key))
+                {
+                    expression = expression.Replace(variable.Key, variable.Value);
+                }
+            }
+        }
+
+        private bool HasLetters(string expression)
+        {
+            foreach (var character in expression)
+                if (char.IsLetter(character))
+                    return true;
+                
+            return false;
         }
 
         private void Txts_MouseDown(object sender, MouseEventArgs e)
@@ -51,5 +78,64 @@ namespace ExpressionEvaluator
             }
         }
 
+        private Dictionary<string, string> GenerateVariablesTable(string assignmentValues)
+        {
+            var assignments = assignmentValues.Split(',');
+            var variables = new Dictionary<string, string>();
+
+            foreach (var assignment in assignments)
+            {
+                var assignmentSplitted = assignment.Split('=');
+                // 0 should be the letter, 1 the value
+                variables[assignmentSplitted[0].Trim()] = assignmentSplitted[1].Trim();
+            }
+
+            return variables;
+        }
+
+        private void BtnEvaluate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Evaluate();
+                lblStatus.Visible = false;
+            }
+            catch (Exception ex)
+            {
+                lblStatus.Text = "Please enter all the variables needed!";
+                lblStatus.Visible = true;
+            }
+            
+        }
+
+        private void Evaluate()
+        {
+            expression = txtExpression.Text;
+            var values = txtValues.Text;
+
+            Console.WriteLine($"Old Expression: {expression}");
+
+            if (HasLetters(expression))
+            {
+                if (String.IsNullOrEmpty(values) || values == txtValues.Tag.ToString())
+                {
+                    lblStatus.Text = "Please fill the values box!";
+                    lblStatus.Visible = true;
+                }
+                else
+                {
+                    var variablesTable = GenerateVariablesTable(values);
+                    SubstituteValues(variablesTable, ref expression);
+
+                    lblStatus.Visible = false;
+                }
+            }
+
+            var parser = new Parser(expression);
+            var evaluator = new CodeAnalysis.Evaluator(parser.ParseExpression());
+
+            var result = evaluator.Evaluate();
+            lblResult.Text = result.ToString();
+        }
     }
 }

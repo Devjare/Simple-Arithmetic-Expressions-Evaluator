@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionEvaluator", "ExpressionEvaluator.csproj", "{F9781029-A1F4-4BAF-945D-55F3BB68F402}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F9781029-A1F4-4BAF-945D-55F3BB68F402}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9781029-A1F4-4BAF-945D-55F3BB68F402}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9781029-A1F4-4BAF-945D-55F3BB68F402}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9781029-A1F4-4BAF-945D-55F3BB68F402}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FD0C144D-002F-4115-AB58-4AD898A204C2}
+	EndGlobalSection
+EndGlobal

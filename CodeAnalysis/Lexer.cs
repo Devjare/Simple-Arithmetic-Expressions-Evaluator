@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace ExpressionEvaluator.CodeAnalysis
 {
-        class Lexer
+    class Lexer
     {
         private readonly string _text;
         private int _position;
@@ -47,12 +47,28 @@ namespace ExpressionEvaluator.CodeAnalysis
                 while (char.IsDigit(Current))
                     Next();
 
+                bool isDecimal = false;
+
+                if (Current.Equals('.'))
+                {
+                    while (char.IsDigit(Current))
+                        Next();
+                    isDecimal = true;
+                }
+
                 var length = _position - start;
                 var text = _text.Substring(start, length);
-                if (!int.TryParse(text, out var value))
-                    _diagnostics.Add($"The number {_text} isn't valid Int32.");
 
+                if (!isDecimal)
+                {
+                    if (!int.TryParse(text, out var result))
+                        _diagnostics.Add($"The number {_text} isn't valid Int32.");
+                    return new SyntaxToken(SyntaxKind.NumberToken, start, text, result);
+                }
+                if (!double.TryParse(text, out var value))
+                    _diagnostics.Add($"The number {_text} isn't valid Floating Number.");
                 return new SyntaxToken(SyntaxKind.NumberToken, start, text, value);
+
             }
 
             if (char.IsWhiteSpace(Current))
@@ -70,7 +86,40 @@ namespace ExpressionEvaluator.CodeAnalysis
             if (Current == '+')
                 return new SyntaxToken(SyntaxKind.PlusToken, _position++, "+", null);
             else if (Current == '-')
+            {
+                Next();
+                if (char.IsDigit(Current))
+                {
+                    var start = _position - 1;
+
+                    while (char.IsDigit(Current))
+                        Next();
+
+                    bool isDecimal = false;
+
+                    if (Current.Equals('.'))
+                    {
+                        while (char.IsDigit(Current))
+                            Next();
+                        isDecimal = true;
+                    }
+
+                    var length = _position - start;
+                    var text = _text.Substring(start, length);
+
+                    if (!isDecimal)
+                    {
+                        if (!int.TryParse(text, out var result))
+                            _diagnostics.Add($"The number {_text} isn't valid Int32.");
+                        return new SyntaxToken(SyntaxKind.NumberToken, start, text, result);
+                    }
+                    if (!double.TryParse(text, out var value))
+                        _diagnostics.Add($"The number {_text} isn't valid Floating Number.");
+                    return new SyntaxToken(SyntaxKind.NumberToken, start, text, value);
+
+                }
                 return new SyntaxToken(SyntaxKind.MinusToken, _position++, "-", null);
+            }
             else if (Current == '*')
                 return new SyntaxToken(SyntaxKind.StarToken, _position++, "*", null);
             else if (Current == '/')

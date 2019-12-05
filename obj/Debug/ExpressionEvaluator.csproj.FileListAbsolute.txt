@@ -1,8 +1,11 @@
 C:\Users\jandr\source\repos\ExpressionEvaluator\bin\Debug\ExpressionEvaluator.pdb
-C:\Users\jandr\source\repos\ExpressionEvaluator\obj\Debug\ExpressionEvaluator.csproj.CoreCompileInputs.cache
 C:\Users\jandr\source\repos\ExpressionEvaluator\obj\Debug\ExpressionEvaluator.pdb
 C:\Users\jandr\source\repos\ExpressionEvaluator\obj\Debug\ExpressionEvaluator.csprojAssemblyReference.cache
 C:\Users\jandr\source\repos\ExpressionEvaluator\obj\Debug\ExpressionEvaluator.Evaluator.resources
 C:\Users\jandr\source\repos\ExpressionEvaluator\obj\Debug\ExpressionEvaluator.csproj.GenerateResource.cache
 C:\Users\jandr\source\repos\ExpressionEvaluator\bin\Debug\ExpressionEvaluator.exe
 C:\Users\jandr\source\repos\ExpressionEvaluator\obj\Debug\ExpressionEvaluator.exe
+C:\Users\jandr\source\repos\ExpressionEvaluator\bin\Debug\ExpressionEvaluator.exe.manifest
+C:\Users\jandr\source\repos\ExpressionEvaluator\bin\Debug\ExpressionEvaluator.application
+C:\Users\jandr\source\repos\ExpressionEvaluator\obj\Debug\ExpressionEvaluator.exe.manifest
+C:\Users\jandr\source\repos\ExpressionEvaluator\obj\Debug\ExpressionEvaluator.application
